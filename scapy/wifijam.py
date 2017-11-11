@@ -26,8 +26,8 @@ import time
 
 BEACON_INTERVAL = 100
 ssid_list = [
-    # Space - Face with tears of joy
-    ' \U0001f602',
+    # No-break space - Face with tears of joy
+    '\u00a0\U0001f602',
 ]
 
 SSID_DUPLICATES = 10

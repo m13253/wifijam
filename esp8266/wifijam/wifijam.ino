@@ -25,8 +25,8 @@ extern "C" {
 
 #define BEACON_INTERVAL 100
 static const char *const ssid_list[] = {
-  // Space - Face with tears of joy
-  " \xf0\x9f\x98\x82",
+  // No-break space - Face with tears of joy
+  "\xc2\xa0\xf0\x9f\x98\x82",
 };
 
 #define SSID_DUPLICATES 10
