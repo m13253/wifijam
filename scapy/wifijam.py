@@ -189,6 +189,7 @@ def hop_channel(dev):
 
 
 def main(dev):
+    subprocess.call(['ip', 'link', 'set', 'dev', dev, 'up'])
     scapy_L2socket = scapy.conf.L2socket(iface=dev)
     try:
         station_info = initialize_stations(ssid_list, ssid_suffixes, SSID_DUPLICATES)
