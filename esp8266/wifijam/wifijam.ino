@@ -29,10 +29,12 @@ static const char *const ssid_list[] = {
   " \xf0\x9f\x98\x82",
 };
 
-#define SSID_DUPLICATES 9
+#define SSID_DUPLICATES 10
 static const char *const ssid_suffixes[] = {
   // Empty
   "",
+  // Soft hyphen
+  "\xc2\xad",
   // Zero width space
   "\xe2\x80\x8b",
   // Zero width non-joiner

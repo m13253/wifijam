@@ -30,10 +30,12 @@ ssid_list = [
     ' \U0001f602',
 ]
 
-SSID_DUPLICATES = 9
+SSID_DUPLICATES = 10
 ssid_suffixes = [
     # Empty
     '',
+    # Soft hyphen
+    '\u00ad',
     # Zero width space
     '\u200b',
     # Zero width non-joiner
