@@ -97,6 +97,14 @@ beacon_tail = bytes([
     # 0x41
 ])
 
+ENABLE_APPLE_PERSONAL_HOTSPOT = True
+beacon_apple_personal_hotspot = bytes([
+    # 0x00: Vendor Specific: "show as personal hotspot on Apple devices"
+    0xdd, 0x0a, 0x00, 0x17, 0xf2, 0x06, 0x01, 0x01,
+    0x03, 0x01, 0x00, 0x00,
+    # 0x0c
+])
+
 
 class StationInfo:
     pass
@@ -132,12 +140,19 @@ def create_beacon_packet(station_info):
     packet[0x20] = BEACON_INTERVAL & 0xff
     packet[0x21] = (BEACON_INTERVAL >> 8) & 0xff
     packet[0x25] = (ssid_len + suffix_len) & 0xff
+    packet_len = 0x26
     packet += station_info.ssid[:ssid_len]
+    packet_len += ssid_len
     packet += station_info.ssid_suffix[:suffix_len]
+    packet_len += suffix_len
     packet += beacon_tail
-    packet[0x26 + ssid_len + suffix_len + 0x0c] = station_info.channel & 0xff;
-    packet[0x26 + ssid_len + suffix_len + 0x2b] = station_info.channel & 0xff;
-    packet[0x26 + ssid_len + suffix_len + 0x2c] = 0x4 | (station_info.sub_channel & 0x3);
+    packet[packet_len + 0x0c] = station_info.channel & 0xff;
+    packet[packet_len + 0x2b] = station_info.channel & 0xff;
+    packet[packet_len + 0x2c] = 0x4 | (station_info.sub_channel & 0x3);
+    packet_len += 0x41
+    if ENABLE_APPLE_PERSONAL_HOTSPOT:
+        packet += beacon_apple_personal_hotspot
+        packet_len += 0x0c
     return bytes(packet)
 
 

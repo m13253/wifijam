@@ -97,6 +97,14 @@ static const char beacon_tail[0x41] = {
   // 0x41
 };
 
+#define ENABLE_APPLE_PERSONAL_HOTSPOT true
+static const char beacon_apple_personal_hotspot[0x0c] = {
+  // 0x00: Vendor Specific: "show as personal hotspot on Apple devices"
+  0xdd, 0x0a, 0x00, 0x17, 0xf2, 0x06, 0x01, 0x01,
+  0x03, 0x01, 0x00, 0x00,
+  // 0x0c
+};
+
 typedef struct {
   const char *ssid;
   const char *ssid_suffix;
@@ -146,13 +154,21 @@ static size_t create_beacon_packet(char packet[BEACON_MAX_LENGTH], station_info_
   *(uint8_t *)  (packet + 0x1c) = random(0x100);
   *(uint16_t *) (packet + 0x20) = BEACON_INTERVAL;
   *(uint8_t *)  (packet + 0x25) = (uint8_t) (ssid_len + suffix_len);
-  memcpy(packet + 0x26,                         station_info->ssid,        ssid_len);
-  memcpy(packet + 0x26 + ssid_len,              station_info->ssid_suffix, suffix_len);
-  memcpy(packet + 0x26 + ssid_len + suffix_len, beacon_tail, 0x41);
-  *(uint8_t *) (packet + 0x26 + ssid_len + suffix_len + 0x0c) = station_info->channel;
-  *(uint8_t *) (packet + 0x26 + ssid_len + suffix_len + 0x2b) = station_info->channel;
-  *(uint8_t *) (packet + 0x26 + ssid_len + suffix_len + 0x2c) = 0x4 | (station_info->sub_channel & 0x3);
-  return 0x26 + ssid_len + suffix_len + 0x41;
+  size_t packet_len = 0x26;
+  memcpy(packet + packet_len, station_info->ssid,        ssid_len);
+  packet_len += ssid_len;
+  memcpy(packet + packet_len, station_info->ssid_suffix, suffix_len);
+  packet_len += suffix_len;
+  memcpy(packet + packet_len, beacon_tail, 0x41);
+  *(uint8_t *) (packet + packet_len + 0x0c) = station_info->channel;
+  *(uint8_t *) (packet + packet_len + 0x2b) = station_info->channel;
+  *(uint8_t *) (packet + packet_len + 0x2c) = 0x4 | (station_info->sub_channel & 0x3);
+  packet_len += 0x41;
+  if(ENABLE_APPLE_PERSONAL_HOTSPOT) {
+    memcpy(packet + packet_len, beacon_apple_personal_hotspot, 0x0c);
+    packet_len += 0x0c;
+  }
+  return packet_len;
 }
 
 static size_t initialize_stations(station_info_t *station_info, const char *const ssid_list[], size_t ssid_list_length, const char *const ssid_suffixes[], size_t ssid_duplicates) {
