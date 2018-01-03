@@ -29,7 +29,7 @@ static const char *const ssid_list[] = {
   "\xc2\xa0\xf0\x9f\x98\x82",
 };
 
-#define SSID_DUPLICATES 10
+#define SSID_DUPLICATES 9
 static const char *const ssid_suffixes[] = {
   // Empty
   "",
@@ -49,8 +49,6 @@ static const char *const ssid_suffixes[] = {
   "\xe2\x81\xa2",
   // Invisible separator
   "\xe2\x81\xa3",
-  // Invisible plus
-  "\xe2\x81\xa4",
 };
 
 #define BEACON_MAX_LENGTH 0x100

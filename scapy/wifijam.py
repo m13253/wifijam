@@ -30,7 +30,7 @@ ssid_list = [
     '\u00a0\U0001f602',
 ]
 
-SSID_DUPLICATES = 10
+SSID_DUPLICATES = 9
 ssid_suffixes = [
     # Empty
     '',
@@ -50,8 +50,6 @@ ssid_suffixes = [
     '\u2062',
     # Invisible separator
     '\u2063',
-    # Invisible plus
-    '\u2064',
 ]
 
 beacon_header = bytes([
