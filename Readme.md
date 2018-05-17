@@ -54,7 +54,7 @@ Connect your development board to the Arduino IDE. Open [wifijam.ino](esp8266/wi
 
 You might need to press the "Flash" button if your development board has one.
 
-Refer to the [ESP8266 documentation]((https://arduino-esp8266.readthedocs.io/en/latest/installing.html) if you have any problems.
+Refer to the [ESP8266 documentation](https://arduino-esp8266.readthedocs.io/en/latest/installing.html) if you have any problems.
 
 Warning
 -------
