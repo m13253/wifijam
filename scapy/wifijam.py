@@ -169,7 +169,7 @@ def initialize_stations(ssid_list, ssid_suffixes, ssid_duplicates):
 def randomize_station(station_info):
     station_info.sequence  = random.randint(0, 0xfff)
     station_info.bssid = bytes([
-        random.randint(0, 0x7f) << 1,
+        (random.randint(0, 0xff) & 0xfe) | 0x02,
         random.randint(0, 0xff),
         random.randint(0, 0xff),
         random.randint(0, 0xff),

@@ -184,7 +184,7 @@ static size_t initialize_stations(station_info_t *station_info, const char *cons
 
 static void randomize_station(station_info_t *station_info, size_t station_id) {
   station_info[station_id].sequence = random(0x1000);
-  station_info[station_id].bssid[0] = random(0x80) << 1;
+  station_info[station_id].bssid[0] = (random(0x100) & 0xfe) | 0x02;
   station_info[station_id].bssid[1] = random(0x100);
   station_info[station_id].bssid[2] = random(0x100);
   station_info[station_id].bssid[3] = random(0x100);
