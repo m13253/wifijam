@@ -24,7 +24,7 @@ import sys
 import time
 
 
-BEACON_INTERVAL = 100
+BEACON_INTERVAL = 200
 ssid_list = [
     # No-break space - Face with tears of joy
     '\u00a0\U0001f602',
