@@ -19,7 +19,6 @@
 import random
 import scapy.all as scapy
 import subprocess
-import struct
 import sys
 import time
 
